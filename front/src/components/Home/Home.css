@@ -1,0 +1,12 @@
+#formpage {
+  background-color: white;
+  padding: 10px;
+}
+
+.behind {
+  background: url("https://media.istockphoto.com/photos/sinking-ship-in-bw-picture-id182662423?b=1&k=6&m=182662423&s=170667a&w=0&h=ksaM8xQU8HrC9rNBBBzZuxSl7mB9qa31SR5CdH8A_XU=");
+  position: absolute;
+  min-height: 100% !important;
+  width: 100%;
+  box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.5);
+}
