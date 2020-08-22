@@ -7,4 +7,4 @@ backend:
 
 frontend:
 - npm install
-- npm build (website will be on localhost:8080)
+- npm run build (website will be on localhost:8080)
