@@ -13,8 +13,6 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 # from django.db.backends.mysql.base import DatabaseWrapper
 from dotenv import load_dotenv
 import os
-import django_heroku
-import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -96,26 +94,15 @@ WSGI_APPLICATION = 'titanic.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 load_dotenv()
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': os.environ["NAME"],
-#         'USER': os.environ["USER"],
-#         'PASSWORD': os.environ["PASSWORD"],
-#         'PORT': os.environ["PORT"],
-#         'HOST': os.environ["HOST"],
-#     }
-# }
 DATABASES = {
-    "default": {
+    'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'HOST': 'us-cdbr-east-02.cleardb.com/heroku_d65ddc5b95fd657',
-        'USER': 'b5230b67f1ef8a',
-        'NAME': 'heroku_d65ddc5b95fd657',
-        'PASSWORD': 'dd5ff43e',
-        'OPTIONS':
-            {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"},
-        'ssl': {'ca': '/path/to/cert.pem', 'cert': '/path/to/cert.pem', 'key': '/path/to/key.pem'}, },
+        'NAME': os.environ["NAME"],
+        'USER': os.environ["USER"],
+        'PASSWORD': os.environ["PASSWORD"],
+        'PORT': os.environ["PORT"],
+        'HOST': os.environ["HOST"],
+    }
 }
 
 
@@ -159,7 +146,5 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-django_heroku.settings(locals())
-del DATABASES['default']['OPTIONS']['sslmode']
 DATABASES['default']['OPTIONS'] = {
     'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"}
