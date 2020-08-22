@@ -10,7 +10,7 @@ export const getResults = (form) => async (dispatch, getState) => {
   form = JSON.stringify(form);
   dispatch({ type: "LOADING" });
   await axios
-    .post("http://127.0.0.1:8000/api/predict/", form, config)
+    .post("https://titanic-backend.herokuapp.com/api/predict/", form, config)
     .then((resp) => {
       dispatch({ type: "TITANIC", payload: resp.data.classification });
     })

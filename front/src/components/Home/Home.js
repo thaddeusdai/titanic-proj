@@ -9,8 +9,7 @@ class Home extends Component {
     pclass: "",
     sex: "",
     age: "",
-    sibsq: "",
-    parch: "",
+    family: "",
     fare: "",
     embarked: "",
     title: "",
@@ -23,9 +22,8 @@ class Home extends Component {
       fare: parseFloat(this.state.fare).toFixed(2),
       pclass: parseInt(this.state.pclass),
       sex: parseInt(this.state.sex),
-      sibsq: parseInt(this.state.sibsq),
       age: parseInt(this.state.age),
-      parch: parseInt(this.state.parch),
+      family: parseInt(this.state.family),
       embarked: parseInt(this.state.embarked),
       title: parseInt(this.state.title),
     };
@@ -34,8 +32,7 @@ class Home extends Component {
       pclass: "",
       sex: "",
       age: "",
-      sibsq: "",
-      parch: "",
+      family: "",
       fare: "",
       embarked: "",
       title: "",
@@ -98,22 +95,9 @@ class Home extends Component {
                     type="number"
                     step="1"
                     className="validate"
-                    placeholder="Enter Number of Sibling/Spouse"
-                    name="sibsq"
-                    value={this.state.sibsq}
-                    onChange={this.onChange}
-                  />
-                </div>
-              </div>
-              <div className="row">
-                <div className="input-field col s12">
-                  <input
-                    type="number"
-                    step="1"
-                    className="validate"
-                    placeholder="Enter Number of Parents/Children With You"
-                    name="parch"
-                    value={this.state.parch}
+                    placeholder="Enter Number of Family Members Onboard"
+                    name="family"
+                    value={this.state.family}
                     onChange={this.onChange}
                   />
                 </div>

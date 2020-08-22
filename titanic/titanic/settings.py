@@ -10,10 +10,15 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
+# from django.db.backends.mysql.base import DatabaseWrapper
+from dotenv import load_dotenv
 import os
+import django_heroku
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# DatabaseWrapper.data_types['DateTimeField'] = 'datetime'
 
 
 # Quick-start development settings - unsuitable for production
@@ -25,7 +30,7 @@ SECRET_KEY = '63cdyhcj7#8b%5e@t=dmc^$@%ylfynqdg^ge0xa9kjabb+bpxj'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'titanic-back.herokuapp.com']
 
 
 # Application definition
@@ -36,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'core',
     'rest_framework',
@@ -46,6 +52,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -87,18 +94,28 @@ WSGI_APPLICATION = 'titanic.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-from dotenv import load_dotenv
 load_dotenv()
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': os.environ["NAME"],
+#         'USER': os.environ["USER"],
+#         'PASSWORD': os.environ["PASSWORD"],
+#         'PORT': os.environ["PORT"],
+#         'HOST': os.environ["HOST"],
+#     }
+# }
 DATABASES = {
-    'default': {
+    "default": {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ["NAME"],
-        'USER': os.environ["USER"],
-        'PASSWORD': os.environ["PASSWORD"],
-        'PORT': os.environ["PORT"],
-        'HOST': os.environ["HOST"],
-    }
+        'HOST': 'us-cdbr-east-02.cleardb.com/heroku_d65ddc5b95fd657',
+        'USER': 'b5230b67f1ef8a',
+        'NAME': 'heroku_d65ddc5b95fd657',
+        'PASSWORD': 'dd5ff43e',
+        'OPTIONS':
+            {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"},
+        'ssl': {'ca': '/path/to/cert.pem', 'cert': '/path/to/cert.pem', 'key': '/path/to/key.pem'}, },
 }
 
 
@@ -139,3 +156,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+django_heroku.settings(locals())
+del DATABASES['default']['OPTIONS']['sslmode']
+DATABASES['default']['OPTIONS'] = {
+    'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"}
