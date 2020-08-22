@@ -1,6 +1,6 @@
 # titanic-proj
+Website: https://predicting-titanic.herokuapp.com/ 
 Backend: https://titanic-backend.herokuapp.com/api/predict/ 
-Website: https://predicting-titanic.herokuapp.com/
 
 backend:
 - python manage.py runserver
