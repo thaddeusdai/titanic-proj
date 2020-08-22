@@ -8,3 +8,10 @@ backend:
 frontend:
 - npm install
 - npm run build (website will be on localhost:8080)
+
+Must create .env file with:
+- NAME
+- USER
+- PASSWORD
+- HOST
+- SECRET_KEY
